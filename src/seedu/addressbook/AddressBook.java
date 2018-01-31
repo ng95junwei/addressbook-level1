@@ -482,6 +482,7 @@ public class AddressBook {
      * @param keywords for searching
      * @return list of persons in full model with name containing some of the keywords
      */
+
     private static ArrayList<String[]> getPersonsWithNameContainingAnyKeyword(Collection<String> keywords) {
         final ArrayList<String[]> matchedPersons = new ArrayList<>();
         List<String> toCompare = keywords.stream()
@@ -588,8 +589,7 @@ public class AddressBook {
     private static String executeListAllSortedPersonsInAddressBook() {
         ArrayList<String[]> toBeDisplayed = getAllPersonsInAddressBook();
         toBeDisplayed.sort((p1, p2) -> {
-            int cmp = p1[0].compareTo(p2[0]);
-            return cmp;
+            return p1[0].compareTo(p2[0]);
         });
         showToUser(toBeDisplayed);
         return getMessageForPersonsDisplayedSummary(toBeDisplayed);
@@ -810,11 +810,11 @@ public class AddressBook {
      * @return true if the given person was found and deleted in the model
      */
     private static boolean deletePersonFromAddressBook(String[] exactPerson) {
-        final boolean changed = ALL_PERSONS.remove(exactPerson);
-        if (changed) {
+        final boolean isRemoved = ALL_PERSONS.remove(exactPerson);
+        if (isRemoved) {
             savePersonsToFile(getAllPersonsInAddressBook(), storageFilePath);
         }
-        return changed;
+        return isRemoved;
     }
 
     /**
